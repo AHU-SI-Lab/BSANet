@@ -1,11 +1,10 @@
-# BSANet
-# GH-PGD v1.0
+# BSANet and GH-PGD v1.0
 
-**GH-PGD** is an annotation-oriented benchmark dataset for fine-grained plastic greenhouse (PG) mapping from very high-resolution (VHR) remote sensing imagery.
+This repository provides the **Boundary-Guided Separation-Aware Network (BSANet)** and the **GH-PGD v1.0** annotation-oriented dataset release for fine-grained plastic greenhouse (PG) mapping from very high-resolution (VHR) remote sensing imagery.
 
-It accompanies the manuscript:
+This repository accompanies the manuscript:
 
-**Fine-Grained Mapping of Plastic Greenhouses from Very High-Resolution Remote Sensing Imagery: A Global Benchmark and Boundary-Guided Separation-Aware Network**
+**Fine-Grained Plastic Greenhouse Mapping from Very High-Resolution Remote Sensing Imagery: A Global Benchmark and Boundary-Guided Separation-Aware Network**
 
 The original VHR image patches are **not redistributed** because the source imagery was obtained from Google Earth and is subject to imagery-provider licensing restrictions. This release provides annotation masks and patch-level geographic metadata.
 
@@ -40,39 +39,43 @@ GH-PGD is designed to support fine-grained plastic greenhouse mapping, dense-sce
 
 ## Directory Structure
 
+The GH-PGD v1.0 annotation-oriented release is stored under `Dataset/`, and the BSANet model implementation is stored under `Model/`.
+
 ```text
-GH-PGD_v1.0/
+BSANet/
 ├── README.md
 ├── LICENSE
-├── metadata/
-│   ├── patch_index.csv
-│   ├── patch_extents.geojson
-│   └── instance_summary.csv
-└── annotations/
-    ├── semantic_masks/
-    │   ├── train/
-    │   ├── val/
-    │   └── test/
-    ├── instance_masks/
-    │   ├── train/
-    │   ├── val/
-    │   └── test/
-    └── coco_json/
-        ├── train.json
-        ├── val.json
-        └── test.json
+├── Dataset/
+│   ├── metadata/
+│   │   ├── patch_index.csv
+│   │   ├── patch_extents.geojson
+│   │   └── instance_summary.csv
+│   └── annotations/
+│       ├── semantic_masks/
+│       │   ├── train/
+│       │   ├── val/
+│       │   └── test/
+│       ├── instance_masks/
+│       │   ├── train/
+│       │   ├── val/
+│       │   └── test/
+│       └── coco_json/
+│           ├── train.json
+│           ├── val.json
+│           └── test.json
+└── Model/
 ```
 
 ---
 
-## Released Materials
+## Released Dataset Materials
 
 ### 1. Semantic masks
 
 Semantic masks are stored in:
 
 ```text
-annotations/semantic_masks/
+Dataset/annotations/semantic_masks/
 ```
 
 The masks are binary annotation masks:
@@ -87,7 +90,7 @@ The masks are binary annotation masks:
 Instance masks are stored in:
 
 ```text
-annotations/instance_masks/
+Dataset/annotations/instance_masks/
 ```
 
 The instance masks use integer IDs:
@@ -104,7 +107,7 @@ Each instance mask corresponds to a semantic mask with the same patch ID.
 COCO-style JSON annotation files are stored in:
 
 ```text
-annotations/coco_json/
+Dataset/annotations/coco_json/
 ```
 
 These files provide object-level annotation information for the train, validation, and test splits.
@@ -114,16 +117,16 @@ These files provide object-level annotation information for the train, validatio
 Patch-level metadata are stored in:
 
 ```text
-metadata/
+Dataset/metadata/
 ```
 
 The main metadata files are:
 
 | File | Description |
 |---|---|
-| `patch_index.csv` | Patch ID, split, study area, row/column index, pixel window, geographic bounds, and annotation file paths |
-| `patch_extents.geojson` | Patch-level polygon extents in WGS84 / EPSG:4326 |
-| `instance_summary.csv` | Patch-level statistics of object-level annotations |
+| `Dataset/metadata/patch_index.csv` | Patch ID, split, study area, row/column index, pixel window, geographic bounds, and annotation file paths |
+| `Dataset/metadata/patch_extents.geojson` | Patch-level polygon extents in WGS84 / EPSG:4326 |
+| `Dataset/metadata/instance_summary.csv` | Patch-level statistics of object-level annotations |
 
 ---
 
@@ -140,7 +143,7 @@ The main metadata files are:
 
 ## Tasks and Benchmarks
 
-GH-PGD can support the following tasks:
+GH-PGD can support the following tasks.
 
 ### 1. Semantic segmentation
 
@@ -174,23 +177,25 @@ This release does **not** include:
 
 The released dataset is annotation-oriented. Users who need image patches should obtain corresponding imagery from authorized sources using the released patch-level geographic extents and comply with the applicable imagery-provider terms of use.
 
-The released `patch_index.csv` and `patch_extents.geojson` define the exact set of GH-PGD patches. Image reconstruction, if needed, should follow these patch-level extents.
+The released `Dataset/metadata/patch_index.csv` and `Dataset/metadata/patch_extents.geojson` define the exact set of GH-PGD patches. Image reconstruction, if needed, should follow these patch-level extents.
 
 ---
 
-## Code
+## Model Code
 
-The BSANet model code is available at:
+The BSANet model implementation is provided in:
 
 ```text
-https://github.com/AHU-SI-Lab/BSANet
+Model/
 ```
+
+The model is designed for dense-scene plastic greenhouse extraction by using boundary priors to refine semantic features and reduce adhesion between adjacent greenhouse structures.
 
 ---
 
 ## License
 
-The released GH-PGD annotation-oriented materials are provided for academic and non-commercial research use.
+The released GH-PGD annotation-oriented materials are provided for academic and non-commercial research use. See [`LICENSE`](LICENSE) for details.
 
 This license applies only to the released annotation-oriented materials, including semantic annotation masks, instance masks, COCO-style JSON annotation files, patch-level geographic indices, patch-level geographic extents, metadata files, and related documentation.
 
@@ -200,10 +205,10 @@ This release does not include Google Earth imagery or derived RGB image patches.
 
 ## Citation
 
-If you use GH-PGD, please cite the accompanying manuscript:
+If you use GH-PGD or BSANet, please cite the accompanying manuscript:
 
 ```text
-Fine-Grained Mapping of Plastic Greenhouses from Very High-Resolution Remote Sensing Imagery:
+Fine-Grained Plastic Greenhouse Mapping from Very High-Resolution Remote Sensing Imagery:
 A Global Benchmark and Boundary-Guided Separation-Aware Network.
 ```
 
