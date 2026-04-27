@@ -1,0 +1,9 @@
+GH-PGD License Notice
+
+The released GH-PGD annotation-oriented materials are provided for academic and non-commercial research use.
+
+This license applies only to the released annotation-oriented materials, including semantic annotation masks, instance masks, COCO-style JSON annotation files, patch-level geographic indices, patch-level geographic extents, metadata files, and related documentation.
+
+This release does not include Google Earth imagery, original very-high-resolution source images, original large GeoTIFF images, quadrant GeoTIFF images, or 512 × 512 RGB image patches. Such imagery is not redistributed and remains subject to the terms of use and licensing restrictions of the corresponding imagery providers.
+
+Users should cite the accompanying paper when using GH-PGD.
