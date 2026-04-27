@@ -14,6 +14,13 @@ The original VHR image patches are **not redistributed** because the source imag
 
 GH-PGD is designed to support fine-grained plastic greenhouse mapping, dense-scene separation, and object-level structural analysis.
 
+## Dataset Download
+
+The GH-PGD v1.0 annotation-oriented dataset can be downloaded from the GitHub Release page:
+
+```text
+https://github.com/AHU-SI-Lab/BSANet/releases/tag/v1.0
+
 ### Dataset at a glance
 
 - **Task**: Plastic greenhouse mapping from VHR remote sensing imagery
