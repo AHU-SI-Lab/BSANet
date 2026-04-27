@@ -1,0 +1,210 @@
+GH-PGD: Global Plastic Greenhouse Dataset
+
+GH-PGD is an annotation-oriented benchmark dataset for fine-grained mapping of plastic greenhouses from very high-resolution remote sensing imagery. It accompanies the manuscript:
+
+**Fine-Grained Mapping of Plastic Greenhouses from Very High-Resolution Remote Sensing Imagery: A Global Benchmark and Boundary-Guided Separation-Aware Network**
+
+This release contains annotation-oriented materials for **32,556** 512 × 512 patches, including:
+
+- **16,278** training patches;
+- **8,139** validation patches;
+- **8,139** test patches.
+
+The original very-high-resolution image patches are **not redistributed** because the source imagery was obtained from Google Earth and is subject to imagery-provider licensing restrictions.
+
+Directory structure
+
+```text
+GH-PGD-release/
+├── README.md
+├── LICENSE
+├── CITATION.cff
+├── metadata/
+│   ├── patch_index.csv
+│   ├── patch_extents.geojson
+│   └── instance_summary.csv
+└── annotations/
+    ├── semantic_masks/
+    │   ├── train/
+    │   ├── val/
+    │   └── test/
+    ├── instance_masks/
+    │   ├── train/
+    │   ├── val/
+    │   └── test/
+    └── coco_json/
+        ├── train.json
+        ├── val.json
+        └── test.json
+```
+
+Included materials
+
+This release includes:
+
+1. **Semantic annotation masks**  
+   Binary annotation masks for plastic greenhouse mapping.
+
+2. **Object-level instance masks**  
+   Instance masks in which background pixels are assigned 0 and individual greenhouse objects are assigned positive integer IDs.
+
+3. **COCO-style JSON annotation files**  
+   COCO-style annotation files for the train, validation, and test splits.
+
+4. **Patch-level geographic indices**  
+   `metadata/patch_index.csv` provides patch-level metadata, including patch ID, split, study area, row/column index, pixel window, geographic bounds, and paths to the corresponding annotation files.
+
+5. **Patch-level geographic extents**  
+   `metadata/patch_extents.geojson` provides polygon extents for the released patches in WGS84 / EPSG:4326 coordinates.
+
+6. **Instance summary**  
+   `metadata/instance_summary.csv` provides patch-level summaries of instance annotations.
+
+Not included
+
+This release does **not** include:
+
+- Google Earth source imagery;
+- original large GeoTIFF images;
+- quadrant GeoTIFF images;
+- 512 × 512 RGB image patches;
+- any `images/` folder.
+
+The dataset is released in an annotation-oriented format. Users who wish to reconstruct image patches should obtain corresponding imagery from authorized sources using the released geographic extents and acquisition information, and should comply with the applicable imagery-provider terms of use.
+
+Annotation format
+
+Semantic masks
+
+Semantic masks are stored under:
+
+```text
+annotations/semantic_masks/train/
+annotations/semantic_masks/val/
+annotations/semantic_masks/test/
+```
+
+The semantic masks are binary annotation masks:
+
+```text
+0 = background or non-target region
+1 = plastic greenhouse
+```
+
+Background or non-target regions are not used as object instances. During model training and evaluation, users may follow the provided masks and COCO annotations and may handle background-only or non-target regions according to their own background or ignore-label protocol.
+
+Instance masks
+
+Instance masks are stored under:
+
+```text
+annotations/instance_masks/train/
+annotations/instance_masks/val/
+annotations/instance_masks/test/
+```
+
+Instance masks use integer IDs:
+
+```text
+0 = background
+1, 2, 3, ... = individual plastic greenhouse instances
+```
+
+Each instance mask corresponds to a semantic mask with the same patch ID.
+
+### COCO-style JSON files
+
+COCO-style annotation files are stored under:
+
+```text
+annotations/coco_json/train.json
+annotations/coco_json/val.json
+annotations/coco_json/test.json
+```
+
+The COCO files contain image-level records and object-level polygon annotations for plastic greenhouses. The original RGB image patches are not included in this release.
+
+Metadata
+
+#`patch_index.csv`
+
+`metadata/patch_index.csv` provides patch-level metadata. Typical fields include:
+
+```text
+patch_id
+split
+study_area
+quadrant
+row
+col
+x_min_px
+y_min_px
+x_max_px
+y_max_px
+min_lon
+max_lon
+min_lat
+max_lat
+semantic_mask
+instance_mask
+source_tif
+source_crs
+```
+
+The `semantic_mask` and `instance_mask` fields provide relative paths to the corresponding annotation files in this release.
+
+`patch_extents.geojson`
+
+`metadata/patch_extents.geojson` provides patch-level polygon extents in WGS84 / EPSG:4326. The released `patch_index.csv` and `patch_extents.geojson` define the exact set of released patches.
+
+Users should **not** reconstruct GH-PGD by uniformly tiling the full study-area extent. If image reconstruction is needed, it should be performed patch by patch using the geographic extent of each released patch.
+
+`instance_summary.csv`
+
+`metadata/instance_summary.csv` provides patch-level summaries, such as the number of greenhouse instances and foreground pixels for each patch.
+
+Dataset splits
+
+The release follows the split used in the accompanying manuscript:
+
+| Split | Number of patches |
+|---|---:|
+| Train | 16,278 |
+| Validation | 8,139 |
+| Test | 8,139 |
+| Total | 32,556 |
+
+Image availability and licensing restrictions
+
+The original VHR image patches are not redistributed because the source imagery was obtained from Google Earth and is subject to imagery-provider licensing restrictions.
+
+Users who wish to reconstruct image patches should:
+
+1. use the released patch-level geographic extents;
+2. obtain corresponding imagery from authorized sources;
+3. comply with the applicable terms of use of the imagery provider.
+
+The license of this release applies only to the released annotation-oriented materials and metadata. It does not apply to Google Earth imagery or any other third-party source imagery.
+
+Code availability
+
+The BSANet model code is publicly available at:
+
+```text
+https://github.com/AHU-SI-Lab/BSANet
+```
+
+ Citation
+
+If you use GH-PGD, please cite the accompanying manuscript:
+
+```text
+Fine-Grained Mapping of Plastic Greenhouses from Very High-Resolution Remote Sensing Imagery:
+A Global Benchmark and Boundary-Guided Separation-Aware Network.
+```
+
+A machine-readable citation file is provided in `CITATION.cff`.
+
+Contact
+
+For questions about the dataset, annotations, or code, please contact the corresponding authors of the accompanying manuscript.
