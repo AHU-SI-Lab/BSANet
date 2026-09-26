@@ -1,228 +1,291 @@
 # BSANet and GH-PGD v1.0
 
-This repository provides the **Boundary-Guided Separation-Aware Network (BSANet)** and the **GH-PGD v1.0** annotation-oriented dataset release for fine-grained plastic greenhouse (PG) mapping from very high-resolution (VHR) remote sensing imagery.
+Official repository for the **Boundary-Guided Separation-Aware Network (BSANet)** and the **GH-PGD v1.0** benchmark dataset for fine-scale plastic greenhouse (PG) mapping from very high-resolution (VHR) remote sensing imagery.
 
 This repository accompanies the manuscript:
 
-**Fine-Grained Plastic Greenhouse Mapping from Very High-Resolution Remote Sensing Imagery: A Global Benchmark and Boundary-Guided Separation-Aware Network**
+**Fine-Scale Mapping of Plastic Greenhouses from Very High-Resolution Remote Sensing Imagery: A Global Benchmark Dataset and Boundary-Guided Separation-Aware Network**
 
-The original VHR image patches are **not redistributed** because the source imagery was obtained from Google Earth and is subject to imagery-provider licensing restrictions. This release provides annotation masks and patch-level geographic metadata.
+The BSANet model implementation is maintained in this GitHub repository.  
+The formal GH-PGD v1.0 dataset release is archived on **Zenodo**.
 
 ---
 
 ## Overview
 
-GH-PGD is designed to support fine-grained plastic greenhouse mapping, dense-scene separation, and object-level structural analysis.
+GH-PGD (Global High-Resolution Plastic Greenhouse Dataset) is an annotation-oriented benchmark dataset designed for:
 
-## Dataset Download
+- fine-scale plastic greenhouse mapping;
+- dense-scene greenhouse separation;
+- boundary-aware segmentation;
+- object-level structural analysis;
+- cross-region and cross-domain evaluation.
 
-The GH-PGD v1.0 annotation-oriented dataset can be downloaded from the GitHub Release page:
+The annotations were produced in the context of VHR RGB remote-sensing imagery accessed through Google Earth.
 
-```text
-https://github.com/AHU-SI-Lab/BSANet/releases/tag/v1.0
-
-### Dataset at a glance
-
-- **Task**: Plastic greenhouse mapping from VHR remote sensing imagery
-- **Release type**: Annotation-oriented release
-- **Patch size**: 512 × 512
-- **Total patches**: 32,556
-- **Training patches**: 16,278
-- **Validation patches**: 8,139
-- **Test patches**: 8,139
-- **Greenhouse instances**: 159,175
-- **Study areas**: 14 representative PG regions
-- **Geographic coverage**: Asia, Europe, and Africa
-- **Countries**: China, Turkey, Algeria, Palestine, Syria, and Italy
-- **Annotations**:
-  - Pixel-level semantic masks
-  - Object-level instance masks
-  - COCO-style JSON annotation files
-- **Geographic metadata**:
-  - Patch-level geographic indices
-  - Patch-level geographic extents
+Because of source-imagery licensing restrictions, the original RGB imagery and derived RGB image patches are **not redistributed**.
 
 ---
 
-## Directory Structure
+## Dataset Download
 
-The GH-PGD v1.0 annotation-oriented release is stored under `Dataset/`, and the BSANet model implementation is stored under `Model/`.
+The formal GH-PGD v1.0 release is available on Zenodo:
 
-```text
-BSANet/
-├── README.md
-├── LICENSE
-├── Dataset/
-│   ├── metadata/
-│   │   ├── patch_index.csv
-│   │   ├── patch_extents.geojson
-│   │   └── instance_summary.csv
-│   └── annotations/
-│       ├── semantic_masks/
-│       │   ├── train/
-│       │   ├── val/
-│       │   └── test/
-│       ├── instance_masks/
-│       │   ├── train/
-│       │   ├── val/
-│       │   └── test/
-│       └── coco_json/
-│           ├── train.json
-│           ├── val.json
-│           └── test.json
-└── Model/
-```
+**Dataset DOI:**  
+https://doi.org/10.5281/zenodo.22929049
+
+**Zenodo record:**  
+https://zenodo.org/records/22929049
+
+The Zenodo release should be regarded as the authoritative archived version of GH-PGD v1.0.
+
+---
+
+## Dataset at a Glance
+
+| Item | Value |
+|---|---:|
+| Version | v1.0 |
+| Countries | 9 |
+| Study areas | 16 |
+| Sub-regions | 18 |
+| Total patches | 37,732 |
+| Training patches | 18,866 |
+| Validation patches | 9,433 |
+| Test patches | 9,433 |
+| Patch size | 512 × 512 |
+| Nominal spatial resolution | 0.5 m |
+| Patch-level instance annotations | 198,247 |
+
+GH-PGD covers study areas in:
+
+- China
+- Turkey
+- Algeria
+- Palestine
+- Syria
+- Italy
+- Australia
+- Argentina
+- Mexico
+
+across Asia, Europe, Africa, Oceania, North America, and South America.
 
 ---
 
 ## Released Dataset Materials
 
-### 1. Semantic masks
+The formal Zenodo release provides:
 
-Semantic masks are stored in:
+- semantic masks;
+- instance masks;
+- instance-level annotations;
+- fixed train/validation/test splits;
+- patch-level geographic metadata;
+- acquisition dates;
+- geographic extents;
+- source-image valid footprints;
+- dataset documentation;
+- metadata schema;
+- quality-control report;
+- release validation script.
 
-```text
-Dataset/annotations/semantic_masks/
-```
-
-The masks are binary annotation masks:
-
-```text
-0 = background or non-target region
-1 = plastic greenhouse
-```
-
-### 2. Instance masks
-
-Instance masks are stored in:
+The formal dataset structure is:
 
 ```text
-Dataset/annotations/instance_masks/
+GH-PGD_v1.0/
+├── README.md
+├── LICENSE.md
+├── CHANGELOG.md
+├── VERSION.txt
+├── CITATION.cff
+├── final_public_metadata_schema.md
+├── FINAL_QC_REPORT.md
+├── validate_ghpgd_release.py
+├── splits/
+│   ├── train.txt
+│   ├── val.txt
+│   └── test.txt
+├── semantic_masks/
+│   ├── train/
+│   ├── val/
+│   └── test/
+├── instance_masks/
+│   ├── train/
+│   ├── val/
+│   └── test/
+├── annotations/
+│   ├── instance_annotations.json
+│   └── instance_statistics.csv
+├── metadata/
+│   ├── patch_metadata.csv
+│   ├── study_area_metadata.csv
+│   ├── source_imagery_metadata.csv
+│   ├── geographic_extents.geojson
+│   └── source_image_valid_footprints.geojson
+└── documentation/
+    ├── dataset_structure.md
+    ├── annotation_definition.md
+    └── image_reconstruction_guide.md
 ```
 
-The instance masks use integer IDs:
-
-```text
-0 = background
-1, 2, 3, ... = individual plastic greenhouse instances
-```
-
-Each instance mask corresponds to a semantic mask with the same patch ID.
-
-### 3. COCO-style annotation files
-
-COCO-style JSON annotation files are stored in:
-
-```text
-Dataset/annotations/coco_json/
-```
-
-These files provide object-level annotation information for the train, validation, and test splits.
-
-### 4. Patch-level metadata
-
-Patch-level metadata are stored in:
-
-```text
-Dataset/metadata/
-```
-
-The main metadata files are:
-
-| File | Description |
-|---|---|
-| `Dataset/metadata/patch_index.csv` | Patch ID, split, study area, row/column index, pixel window, geographic bounds, and annotation file paths |
-| `Dataset/metadata/patch_extents.geojson` | Patch-level polygon extents in WGS84 / EPSG:4326 |
-| `Dataset/metadata/instance_summary.csv` | Patch-level statistics of object-level annotations |
+For complete dataset documentation, metadata definitions, quality-control information, and reconstruction guidance, please refer to the README and documentation included in the Zenodo release.
 
 ---
 
 ## Dataset Splits
 
-| Split | Number of patches |
-|---|---:|
-| Train | 16,278 |
-| Validation | 8,139 |
-| Test | 8,139 |
-| **Total** | **32,556** |
+| Split | Number of patches | Instance annotations |
+|---|---:|---:|
+| Train | 18,866 | 106,051 |
+| Validation | 9,433 | 46,098 |
+| Test | 9,433 | 46,098 |
+| **Total** | **37,732** | **198,247** |
 
----
-
-## Tasks and Benchmarks
-
-GH-PGD can support the following tasks.
-
-### 1. Semantic segmentation
-
-- **Goal**: Extract plastic greenhouse coverage.
-- **Annotations**: Semantic masks.
-- **Example metrics**: IoU, mIoU, Precision, Recall, F1-score.
-
-### 2. Boundary-aware mapping
-
-- **Goal**: Evaluate boundary quality and separation of adjacent greenhouses.
-- **Annotations**: Semantic masks and derived boundary labels.
-- **Example metrics**: Boundary IoU, ASSD, HD95.
-
-### 3. Object-level structural analysis
-
-- **Goal**: Analyze greenhouse instances, density, shape, and spatial organization.
-- **Annotations**: Instance masks and COCO-style object annotations.
-- **Example metrics**: Object count consistency, greenhouse under-segmentation, dense-scene separation quality.
+The predefined partitions are mutually exclusive and jointly contain all released patch IDs.
 
 ---
 
 ## Image Availability
 
-This release does **not** include:
+The GH-PGD v1.0 public release does **not** redistribute:
 
-- Google Earth source imagery;
-- original large GeoTIFF images;
-- quadrant GeoTIFF images;
-- 512 × 512 RGB image patches;
-- any `images/` folder.
+- original Google Earth VHR imagery;
+- original VHR GeoTIFF imagery;
+- derived 512 × 512 RGB image patches;
+- visualization products containing source RGB imagery.
 
-The released dataset is annotation-oriented. Users who need image patches should obtain corresponding imagery from authorized sources using the released patch-level geographic extents and comply with the applicable imagery-provider terms of use.
+The public release contains only redistributable author-created annotations, masks, metadata, geographic extents, acquisition metadata, documentation, and validation materials.
 
-The released `Dataset/metadata/patch_index.csv` and `Dataset/metadata/patch_extents.geojson` define the exact set of GH-PGD patches. Image reconstruction, if needed, should follow these patch-level extents.
+Users who need corresponding RGB imagery should obtain imagery from authorized sources and comply with the applicable imagery-provider terms of use.
+
+The released geographic footprints, acquisition dates, imagery attribution information, and nominal 0.5 m spatial resolution can be used as spatial references for preparing authorized imagery corresponding to the annotations.
 
 ---
 
 ## Model Code
 
-The BSANet model implementation is provided in:
+The BSANet implementation is provided in this repository under:
 
 ```text
 Model/
 ```
 
-The model is designed for dense-scene plastic greenhouse extraction by using boundary priors to refine semantic features and reduce adhesion between adjacent greenhouse structures.
+BSANet is designed for fine-scale plastic greenhouse extraction in dense agricultural scenes.
+
+The network incorporates boundary information into semantic feature learning to improve the separation of adjacent greenhouse objects and reduce object adhesion.
+
+The model is evaluated using pixel-level, boundary-level, and object-level metrics.
+
+---
+
+## Main Tasks
+
+GH-PGD can support several research tasks.
+
+### 1. Semantic Segmentation
+
+**Goal:** Extract plastic greenhouse coverage.
+
+Typical metrics include:
+
+- IoU
+- Precision
+- Recall
+- F1-score
+
+### 2. Boundary-Aware Segmentation
+
+**Goal:** Evaluate greenhouse boundary quality and the separation of adjacent PG objects.
+
+Typical metrics include:
+
+- Boundary IoU
+- HD95
+- MED2
+
+### 3. Object-Level Analysis
+
+**Goal:** Evaluate object integrity, separation, and greenhouse counting performance.
+
+The released instance masks and instance annotations can also support research on greenhouse size, density, spatial organization, and instance-level structure.
+
+---
+
+## Quality Control
+
+The formal GH-PGD v1.0 release passed the complete release validation reported in `FINAL_QC_REPORT.md`.
+
+Key validated quantities include:
+
+- 37,732 semantic masks;
+- 37,732 instance masks;
+- 198,247 instance annotations;
+- 37,732 valid patch-level geographic footprints;
+- 18 valid source-image footprints;
+- complete acquisition dates for all released sub-regions;
+- mutually exclusive train/validation/test partitions.
+
+The validation script `validate_ghpgd_release.py` is included in the Zenodo release.
 
 ---
 
 ## License
 
-The released GH-PGD annotation-oriented materials are provided for academic and non-commercial research use. See [`LICENSE`](LICENSE) for details.
+The author-created annotations, semantic masks, instance masks, metadata, and documentation of GH-PGD v1.0 are licensed under the:
 
-This license applies only to the released annotation-oriented materials, including semantic annotation masks, instance masks, COCO-style JSON annotation files, patch-level geographic indices, patch-level geographic extents, metadata files, and related documentation.
+**Creative Commons Attribution 4.0 International License (CC BY 4.0)**
 
-This release does not include Google Earth imagery or derived RGB image patches. Such imagery is not redistributed and remains subject to the terms of use and licensing restrictions of the corresponding imagery providers.
+SPDX identifier:
+
+```text
+CC-BY-4.0
+```
+
+The dataset license applies only to the released author-created materials.
+
+It does **not** apply to the underlying third-party source imagery and grants no rights to Google Earth, Airbus/CNES-Airbus, Maxar Technologies, or other imagery providers.
+
+Please refer to `LICENSE.md` in the Zenodo dataset release for the complete licensing statement.
 
 ---
 
 ## Citation
 
-If you use GH-PGD or BSANet, please cite the accompanying manuscript:
+If you use GH-PGD v1.0, please cite the dataset:
 
 ```text
-Fine-Grained Plastic Greenhouse Mapping from Very High-Resolution Remote Sensing Imagery:
-A Global Benchmark and Boundary-Guided Separation-Aware Network.
+Wang, Y., Zhang, P., Wu, Y., Yang, H., Wang, B., Wang, C., Zhang, X., & Du, P.
+GH-PGD: Global High-Resolution Plastic Greenhouse Dataset (Version 1.0) [Data set].
+Zenodo.
+https://doi.org/10.5281/zenodo.22929049
 ```
 
-A formal citation will be updated after publication.
+If you use BSANet or the benchmark results, please also cite the accompanying manuscript:
+
+```text
+Fine-Scale Mapping of Plastic Greenhouses from Very High-Resolution Remote Sensing Imagery:
+A Global Benchmark Dataset and Boundary-Guided Separation-Aware Network.
+```
+
+The formal manuscript citation will be updated after publication.
+
+---
+
+## Version
+
+GH-PGD v1.0 is the first formally versioned release corresponding to the associated manuscript.
+
+Earlier dataset materials previously hosted through this GitHub repository represented development-stage contents and should not be treated as the formal GH-PGD v1.0 release.
+
+For reproducibility, please use the archived Zenodo release associated with:
+
+```text
+DOI: 10.5281/zenodo.22929049
+```
 
 ---
 
 ## Contact
 
-For questions about the dataset, annotations, or code, please contact the corresponding author of the accompanying manuscript.
+For questions regarding GH-PGD, BSANet, annotations, metadata, or model implementation, please contact the corresponding author of the accompanying manuscript.
