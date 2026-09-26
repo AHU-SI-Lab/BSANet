@@ -232,23 +232,11 @@ The validation script `validate_ghpgd_release.py` is included in the Zenodo rele
 
 ## License
 
-The author-created annotations, semantic masks, instance masks, metadata, and documentation of GH-PGD v1.0 are licensed under the:
+The BSANet source code in this repository is released under the MIT License.
 
-**Creative Commons Attribution 4.0 International License (CC BY 4.0)**
+The GH-PGD v1.0 dataset is released separately on Zenodo under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
-SPDX identifier:
-
-```text
-CC-BY-4.0
-```
-
-The dataset license applies only to the released author-created materials.
-
-It does **not** apply to the underlying third-party source imagery and grants no rights to Google Earth, Airbus/CNES-Airbus, Maxar Technologies, or other imagery providers.
-
-Please refer to `LICENSE.md` in the Zenodo dataset release for the complete licensing statement.
-
----
+The GH-PGD license applies only to the released author-created annotations, masks, metadata, and documentation and does not grant rights to the underlying third-party source imagery.
 
 ## Citation
 
