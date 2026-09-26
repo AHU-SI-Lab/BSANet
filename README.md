@@ -1,6 +1,6 @@
 # BSANet and GH-PGD v1.0
 
-Official repository for the **Boundary-Guided Separation-Aware Network (BSANet)** and the **GH-PGD v1.0** benchmark dataset for fine-scale plastic greenhouse (PG) mapping from very high-resolution (VHR) remote sensing imagery.
+Official repository for the **Boundary-Guided Separation-Aware Network (BSANet)** and the associated **GH-PGD v1.0** benchmark dataset for fine-scale plastic greenhouse (PG) mapping from very high-resolution (VHR) remote sensing imagery.
 
 This repository accompanies the manuscript:
 
@@ -237,6 +237,8 @@ The BSANet source code in this repository is released under the MIT License.
 The GH-PGD v1.0 dataset is released separately on Zenodo under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
 The GH-PGD license applies only to the released author-created annotations, masks, metadata, and documentation and does not grant rights to the underlying third-party source imagery.
+
+---
 
 ## Citation
 
